@@ -14,14 +14,12 @@ lines = content.splitlines()
 
 @dataclass
 class MachineState:
-    state: tuple[bool]
+    state: tuple[bool, ...]
     num_presses: int = 0
 
 
-def solve_machine(desired_state: list[bool], buttons: list[list[int]]):
-    Q = [MachineState(tuple([False] * len(desired_state)))]  # type: ignore
-
-    desired_state = tuple(desired_state)  # type: ignore
+def solve_machine(desired_state: tuple[bool, ...], buttons: list[list[int]]):
+    Q = [MachineState(tuple([False] * len(desired_state)))]
 
     visited_states = set()
 
@@ -40,7 +38,7 @@ def solve_machine(desired_state: list[bool], buttons: list[list[int]]):
             new_state = list(front.state)
             for i in b:
                 new_state[i] = not new_state[i]
-            Q.append(MachineState(tuple(new_state), front.num_presses + 1))  # type: ignore
+            Q.append(MachineState(tuple(new_state), front.num_presses + 1))
 
     return 0
 
@@ -52,7 +50,7 @@ for line in lines:
     buttons = [list(int(x) for x in p.split(",")) for p in buttons]
     joltages = list(int(x) for x in parts[-1][1:-1].split(","))
 
-    p1total += solve_machine(desired_state, buttons)
+    p1total += solve_machine(tuple(desired_state), buttons)
 
     cost_per_button = np.ones(len(buttons))
     constraint_matrix = np.zeros((len(joltages), len(buttons)))
