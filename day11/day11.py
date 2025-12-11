@@ -7,12 +7,12 @@ p2total = 0
 content = sys.stdin.read()
 lines = content.splitlines()
 
-connections: dict[str, tuple[str]] = dict()
+connections: dict[str, tuple[str, ...]] = dict()
 
 for line in lines:
     node, *out = line.split()
     node = node[:-1]
-    connections[node] = tuple(out)  # type: ignore
+    connections[node] = tuple(out)
 
 
 def search(node: str):
