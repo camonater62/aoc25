@@ -3,9 +3,7 @@ from dataclasses import dataclass
 
 
 class Shape:
-    def __init__(
-        self, blocks: tuple[tuple[int, ...], ...], compute_orientations: bool = True
-    ):
+    def __init__(self, blocks: tuple[tuple[int, ...], ...]):
         self.blocks = blocks
 
         self.filled_positions: list[tuple[int, int]] = []
